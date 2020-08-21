@@ -9,13 +9,8 @@ const initServerRoute = {
         options: {
           auth: false,
         },
-        handler: () => {
-          return {
-            status: {
-              code: 200,
-              message: 'Server Running...',
-            },
-          };
+        handler: (request, h) => {
+          return h.file('index.html');
         },
       },
     ]);
