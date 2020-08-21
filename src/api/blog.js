@@ -1,4 +1,5 @@
 const Response = require('../utils/Response');
+const Contentful = require('../services/contentful');
 
 module.exports = {
   name: 'blog-api',
@@ -15,26 +16,44 @@ module.exports = {
         },
         handler: getBlogPosts,
       },
+      {
+        method: 'GET',
+        path: '/posts/{slug}',
+        options: {
+          auth: 'guestAuth',
+          description: 'Get blog posts by ID',
+          tags: ['api', 'Blog'],
+        },
+        handler: getBlogPostsBySlug,
+      },
     ]);
   },
 };
 
 const getBlogPosts = async (request, h) => {
   try {
-    const posts = [
-      {
-        id: 1,
-        title:
-          'Setting Up An API Using Flask, Google’s Cloud SQL And App Engine',
-      },
-      {
-        id: 2,
-        title: 'Mastering Props And PropTypes In React',
-      },
-    ];
+    let response = await Contentful.getAllEntries();
+    response = response.map((item) => item.fields);
     return h.response(
       Response.generateSuccessResponse(
-        posts,
+        response,
+        'Successfully retrieve status',
+        200
+      )
+    );
+  } catch (error) {
+    return error;
+  }
+};
+
+const getBlogPostsBySlug = async (request, h) => {
+  try {
+    const { slug } = request.params;
+    let response = await Contentful.getEntryBySlug(slug);
+    response = response.map((item) => item.fields);
+    return h.response(
+      Response.generateSuccessResponse(
+        response[0],
         'Successfully retrieve status',
         200
       )

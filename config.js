@@ -56,6 +56,24 @@ var config = {
     ],
     grouping: 'tags',
   },
+  contentful: {
+    $filter: 'env',
+    production: {
+      spaceID: '2gjkm7kz6ek1',
+      contentDeliveryApiKey: 'U-YB6RkRYdVcmq0Vlxk1J7b-xIBMYcS35cVYjhWeeRQ',
+      contentPreviewApiKey: 'rpHG19nWXv9SSXBREOUQe6KnWoMGbmVq1jpjnWnWdtY',
+    },
+    dev: {
+      spaceID: '2gjkm7kz6ek1',
+      contentDeliveryApiKey: 'U-YB6RkRYdVcmq0Vlxk1J7b-xIBMYcS35cVYjhWeeRQ',
+      contentPreviewApiKey: 'rpHG19nWXv9SSXBREOUQe6KnWoMGbmVq1jpjnWnWdtY',
+    },
+    $default: {
+      spaceID: '2gjkm7kz6ek1',
+      contentDeliveryApiKey: 'U-YB6RkRYdVcmq0Vlxk1J7b-xIBMYcS35cVYjhWeeRQ',
+      contentPreviewApiKey: 'rpHG19nWXv9SSXBREOUQe6KnWoMGbmVq1jpjnWnWdtY',
+    },
+  },
 };
 
 var store = new Confidence.Store(config);
